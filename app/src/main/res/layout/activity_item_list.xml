@@ -7,19 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -28,15 +17,21 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include layout="@layout/item_list" />
-    </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        <android.support.v7.widget.SearchView
+            android:id="@+id/fab"
+            android:layout_width="298dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email" />
+
+        <ListView
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/hashTagsList"
+            android:layout_gravity="right|center_vertical" />
+    </FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
