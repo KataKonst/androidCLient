@@ -1,15 +1,11 @@
 package com.example.katakonst.licenta.activity
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidinterview.com.customlistviewimagetext.TracksAdapter
 import com.example.katakonst.licenta.AsyncTask.tracks.GetLikedTracksTask
-import com.example.katakonst.licenta.AsyncTask.tracks.UserUploadedTracksTask
 import com.example.katakonst.licenta.JsonModels.Tracks
 import com.example.katakonst.licenta.JsonModels.Users
 
@@ -28,8 +24,7 @@ class UserLikedTraks : AppCompatActivity() {
 
 
         val trackList = findViewById(R.id.userLikedTracks) as ListView
-        var adaprter= ArrayAdapter<Tracks>(trackList.context,
-                android.R.layout.simple_list_item_1,
+        var adaprter= TracksAdapter(this,
                 ArrayList<Tracks>());
         trackList.adapter=adaprter
         val uploaded= GetLikedTracksTask(adaprter, id)

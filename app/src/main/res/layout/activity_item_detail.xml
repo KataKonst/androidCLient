@@ -1,60 +1,102 @@
-<FrameLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+   >
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="63dp"
         android:text="Play"
         android:id="@+id/button"
-        android:layout_gravity="left|center_vertical" />
+        android:layout_gravity="left|center_vertical"
+        android:layout_alignTop="@+id/item_detail_container"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="80dp" />
 
     <SeekBar
         android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:id="@+id/seekBar3"
         android:layout_gravity="center"
-        android:max="234" />
+        android:max="234"
+        android:layout_alignBottom="@+id/button"
+        android:layout_toRightOf="@+id/button"
+        android:layout_toEndOf="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/LikeButton"
-        android:layout_gravity="left|bottom" />
+        android:layout_gravity="left|bottom"
+        android:layout_below="@+id/LikeNrText"
+        android:layout_toLeftOf="@+id/TrackHashTags"
+        android:layout_toStartOf="@+id/TrackHashTags"
+        android:layout_marginTop="53dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/LikeNrText"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignTop="@+id/TrackHashTags"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ListView
         android:layout_width="119dp"
         android:layout_height="wrap_content"
         android:id="@+id/TrackHashTags"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:layout_marginTop="99dp"
+        android:layout_below="@+id/seekBar3"
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/trackPhoto"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/TrackHashTags"
+        android:layout_alignStart="@+id/TrackHashTags" />
 
     <ListView
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:id="@+id/listView3"
-        android:layout_gravity="left|top" />
+        android:layout_gravity="left|top"
+        android:layout_alignTop="@+id/item_detail_container"
+        android:layout_toRightOf="@+id/seekBar3"
+        android:layout_toEndOf="@+id/seekBar3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Similar_Tracks"
+        android:layout_gravity="right|bottom"
+        android:text="Similar TRacks"
+        android:layout_below="@+id/button"
+        android:layout_toRightOf="@+id/LikeNrText"
+        android:layout_toEndOf="@+id/LikeNrText" />
 
 
-</FrameLayout>
+</RelativeLayout>

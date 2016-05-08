@@ -18,6 +18,7 @@ import com.example.katakonst.licenta.JsonModels.Comments
 import com.example.katakonst.licenta.JsonModels.HashTags
 
 import com.example.katakonst.licenta.JsonModels.Tracks
+import com.example.katakonst.licenta.activity.SimilarTracks
 
 import org.apache.commons.codec.net.URLCodec
 import java.util.*
@@ -31,7 +32,6 @@ class ItemDetailFragment : Fragment() {
     var link: String? = null
     var photoLink:String?=null;
     private var tvw: View? = null
-    private var mItem: Tracks? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,6 @@ class ItemDetailFragment : Fragment() {
             id=args.getString(Tracks.Companion.Id).toString()
             photoLink=args.getString(Tracks.Companion.PhotoLink);
             Log.d("s", nume)
-            val activity = this.activity
 
         try {
                 val url = Constants.streamip + "/" + URLCodec().encode(link)
@@ -72,9 +71,6 @@ class ItemDetailFragment : Fragment() {
 
             val hashTagTask = GetHashTagsOfTrack(hashTagAdapter, id)
             hashTagTask.execute()
-
-
-
 
             likeButton.setOnClickListener{
                 var intent=Intent(this.context, UsersWhoLikedTrack::class.java);
@@ -107,6 +103,16 @@ class ItemDetailFragment : Fragment() {
                 val commentsTask = ShowCommentsTask(adaprter, id)
                 commentsTask.execute()
 
+            val similarButton=this.activity.findViewById(R.id.Similar_Tracks) as Button
+            similarButton.setOnClickListener {
+                var intent=Intent(this.context, SimilarTracks::class.java);
+                var bundle=Bundle()
+                bundle.putString(Tracks.Id,id)
+                intent.putExtras(bundle)
+                this.activity.startActivity(intent)
+
+            }
+
 
 
                 seekBar.max = duration
@@ -127,20 +133,15 @@ class ItemDetailFragment : Fragment() {
                     }
                 })
 
-
-
-
-
-
-
-
-                //  mPlayer.seekTo(789);
-            } catch (ex: Exception) {
+           } catch (ex: Exception) {
                 Log.d("d", ex.toString())
 
             }
 
         }
+
+
+
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -160,15 +161,4 @@ class ItemDetailFragment : Fragment() {
         return rootView
     }
 
-    companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        val ARG_ITEM_ID = "item_id"
     }
-}
-/**
- * Mandatory empty constructor for the fragment manager to instantiate the
- * fragment (e.g. upon screen orientation changes).
- */

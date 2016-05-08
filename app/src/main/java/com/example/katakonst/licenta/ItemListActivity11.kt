@@ -1,35 +1,30 @@
 package com.example.katakonst.licenta
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
+import androidinterview.com.customlistviewimagetext.TracksAdapter
 import com.example.katakonst.licenta.AsyncTask.HashTags.GetTracksByHashTagTask
 import com.example.katakonst.licenta.AsyncTask.HashTags.AllHashTagsTask
-
-
 import com.example.katakonst.licenta.AsyncTask.TracksTask
 import com.example.katakonst.licenta.AsyncTask.tracks.SearchTrackTask
 import com.example.katakonst.licenta.JsonModels.HashTags
 import com.example.katakonst.licenta.JsonModels.Tracks
-import com.example.katakonst.licenta.TrackLIst.SimpleItemRecyclerViewAdapter
+import com.example.katakonst.licenta.activity.ChooseNameActivity
+import com.example.katakonst.licenta.activity.MatchActivity
 
 import java.util.ArrayList
 
 class ItemListActivity : AppCompatActivity() {
 
-    private var mTwoPane: Boolean = false
 
 
     override fun onCreateOptionsMenu(menu:Menu):Boolean {
@@ -51,8 +46,21 @@ class ItemListActivity : AppCompatActivity() {
 
 
         this.openOptionsMenu();
-        val recyclerView = findViewById(R.id.item_list)!!
-        setupRecyclerView(recyclerView as RecyclerView)
+        val match_Act = findViewById(R.id.shaz_Act) as Button
+
+        match_Act.setOnClickListener {
+            var intent= Intent(this, MatchActivity::class.java);
+            this.startActivity(intent)
+        }
+
+
+        val chat_but = findViewById(R.id.chatButton) as Button
+
+        chat_but.setOnClickListener {
+            var intent3= Intent(this, ChooseNameActivity::class.java);
+            this.startActivity(intent3)
+        }
+
 
 
         val trackList = findViewById(R.id.hashTagsList) as ListView
@@ -64,21 +72,43 @@ class ItemListActivity : AppCompatActivity() {
         uploaded.execute()
 
 
+
+        val startTracks= findViewById(R.id.startList) as ListView
+        var startTracksAdapter= TracksAdapter(this,
+                ArrayList<Tracks>());
+        startTracks.adapter=startTracksAdapter
+        val start= TracksTask(startTracksAdapter)
+        start.execute()
+
+        var trackDetailsIntent= Intent(this, ItemDetailActivity::class.java);
+
+          startTracks.setOnItemClickListener{
+            parent: AdapterView<*>, view:View, position:Int,
+            id:Long ->
+            val selectedFromList =startTracks.getItemAtPosition(position) as Tracks;
+            var bundle=Bundle()
+            bundle.putString(Tracks.Id,selectedFromList.id)
+            bundle.putString(Tracks.Name,selectedFromList.name)
+            bundle.putString(Tracks.Link,selectedFromList.link)
+            bundle.putString(Tracks.PhotoLink,selectedFromList.photoLink)
+
+            trackDetailsIntent.putExtras(bundle)
+            this.startActivity(trackDetailsIntent)
+
+        }
+
+
+
         trackList.setOnItemClickListener{
             parent: AdapterView<*>, view:View, position:Int,
             id:Long ->
             val selectedFromList =trackList.getItemAtPosition(position) as HashTags;
             val pl = ArrayList<Tracks>()
-            val adapter = SimpleItemRecyclerViewAdapter(pl, mTwoPane, this@ItemListActivity)
-            recyclerView.adapter = adapter
-            val searchTracks= GetTracksByHashTagTask(adapter, selectedFromList.id)
+            startTracksAdapter.clear();
+            val searchTracks= GetTracksByHashTagTask( startTracksAdapter, selectedFromList.id)
             searchTracks.execute()
 
-
-
         }
-
-
 
         val fb = findViewById(R.id.fab) as SearchView
         fb.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -98,12 +128,9 @@ class ItemListActivity : AppCompatActivity() {
 
             fun callSearch(query: String): Unit {
 
-                val pl = ArrayList<Tracks>()
-                val adapter = SimpleItemRecyclerViewAdapter(pl, mTwoPane, this@ItemListActivity)
-                recyclerView.adapter = adapter
-
-                val searchTracks= SearchTrackTask(adapter, query)
-                searchTracks.execute()
+                startTracksAdapter.clear();
+                val startTask= SearchTrackTask(startTracksAdapter,query)
+                startTask.execute()
             }
 
 
@@ -112,35 +139,5 @@ class ItemListActivity : AppCompatActivity() {
 
 
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-
-        var match: String? = ""
-        val args = intent
-        if (args != null)
-            match = args.getStringExtra("match")
-        else {
-            Log.d("s", "null")
-        }
-
-        if (match == null) {
-            Log.d("s", "Sssss")
-
-            val pl = ArrayList<Tracks>()
-            val adapter = SimpleItemRecyclerViewAdapter(pl, mTwoPane, this)
-            recyclerView.adapter = adapter
-            val task = TracksTask(adapter, Constants.ip + "/tracks")
-            task.execute()
-        } else {
-            Log.d("s", match)
-            val pl = ArrayList<Tracks>()
-            val adapter = SimpleItemRecyclerViewAdapter(pl, mTwoPane, this)
-            recyclerView.adapter = adapter
-            val task = TracksTask(adapter, Constants.ip + "/tracks")
-            task.execute()
-
-        }
-
-
-    }
 
 }

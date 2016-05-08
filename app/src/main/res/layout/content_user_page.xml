@@ -13,11 +13,12 @@
     tools:showIn="@layout/activity_user_page">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/userPhoto"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/userText"
+        android:layout_alignStart="@+id/userText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,15 +33,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/uploadedTracks"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/userText" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/showTracksLiked"
+        android:layout_below="@+id/userPlayLists"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UserPlayLists"
+        android:id="@+id/userPlayLists"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/userText"
-        android:layout_toEndOf="@+id/userText" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

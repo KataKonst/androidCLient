@@ -1,6 +1,5 @@
 package com.example.katakonst.licenta.Dao
 
-import android.util.Log
 import com.example.katakonst.licenta.Constants
 import com.example.katakonst.licenta.JsonModels.LikeNr
 import com.example.katakonst.licenta.JsonModels.Tracks
@@ -23,6 +22,7 @@ class LikeDao{
             return  LikesNr.first()
 
     }
+
     fun getUsersWhoLikedTrack(trackId:String?):List<Users>
     {
         val likesJson=TrackRequest(Constants.ip + "/getUserTrackLiked?trackId=" + URLCodec().encode(trackId)).tracks
@@ -30,6 +30,7 @@ class LikeDao{
         return  LikesNr
 
     }
+
     fun getLikedTracksByUserk(userId:String?):List<Tracks>
     {
         val likedTracks=TrackRequest(Constants.ip + "/getUserLikedTracks?userId=" + URLCodec().encode(userId)).tracks

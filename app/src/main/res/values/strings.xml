@@ -19,6 +19,12 @@
     <string name="title_activity_user_page">UserPage</string>
     <string name="search_title">UserPage</string>
     <string name="title_activity_user_liked_traks">UserLikedTraks</string>
+    <string name="title_activity_match">MatchActivity</string>
+    <string name="title_activity_user_play_lists">UserPlayLists</string>
+    <string name="title_activity_play_tracks">PlayTracks</string>
+    <string name="title_activity_similar_tracks">SimilarTracks</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_choose_name">ChooseNameActivity</string>
 
 
 </resources>

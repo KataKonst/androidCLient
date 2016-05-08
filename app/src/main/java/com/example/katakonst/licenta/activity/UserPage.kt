@@ -1,19 +1,16 @@
 package com.example.katakonst.licenta.activity
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.*
+import androidinterview.com.customlistviewimagetext.TracksAdapter
 import com.example.katakonst.licenta.AsyncTask.tracks.UserUploadedTracksTask
 import com.example.katakonst.licenta.AsyncTask.users.DownloadImageTask
 import com.example.katakonst.licenta.Constants
 import com.example.katakonst.licenta.ItemDetailActivity
-import com.example.katakonst.licenta.ItemListActivity
 import com.example.katakonst.licenta.JsonModels.Tracks
 import com.example.katakonst.licenta.JsonModels.Users
 
@@ -36,8 +33,8 @@ class UserPage : AppCompatActivity() {
         val photoView = findViewById(R.id.userPhoto) as ImageView
 
         val trackList = findViewById(R.id.uploadedTracks) as ListView
-        var adaprter= ArrayAdapter<Tracks>(trackList.context,
-                android.R.layout.simple_list_item_1,
+
+        var adaprter= TracksAdapter(this,
                 ArrayList<Tracks>());
         trackList.adapter=adaprter
         val uploaded=UserUploadedTracksTask(adaprter,id)
@@ -56,6 +53,8 @@ class UserPage : AppCompatActivity() {
             bundle.putString(Tracks.Id,selectedFromList.id)
             bundle.putString(Tracks.Name,selectedFromList.name)
             bundle.putString(Tracks.Link,selectedFromList.link)
+            bundle.putString(Tracks.PhotoLink,selectedFromList.photoLink)
+
             intent.putExtras(bundle)
             this.startActivity(intent)
 
@@ -74,6 +73,20 @@ class UserPage : AppCompatActivity() {
 
             this.startActivity(showLikedTracksIntent)
 
+
+        }
+
+        var showUserIdIntent= Intent(this, UserPlayLists::class.java);
+
+
+        val userPlayListsButton=findViewById(R.id.userPlayLists) as Button
+
+        userPlayListsButton.setOnClickListener {
+            var bundle=Bundle()
+            bundle.putString(Users.id,id)
+            showUserIdIntent.putExtras(bundle)
+
+            this.startActivity(showUserIdIntent)
 
         }
 

@@ -6,23 +6,21 @@ import com.example.katakonst.licenta.Dao.TracksDao
 import com.example.katakonst.licenta.JsonModels.Tracks
 
 /**
- * Created by katakonst on 4/21/16.
+ * Created by katakonst on 5/8/16.
  */
-
-class SearchTrackTask(private val mAdapter:  ArrayAdapter<Tracks>,pSearchString:String?) : AsyncTask<Void, Void, Boolean>(){
+class GetTrackByMd5(pMd5:String?,pSave:(List<Tracks>)->Tracks) : AsyncTask<Void, Void, Boolean>(){
 
     internal lateinit var mList: List<Tracks>
-    val searchString=pSearchString
-    val adapter=mAdapter
+    val md5=pMd5
+    val save=pSave
 
     override fun doInBackground(vararg params: Void): Boolean? {
-        mList = TracksDao().searchTracks(searchString)
+        mList = TracksDao().getTrackByMd5(md5);
         return true
     }
 
     override fun onPostExecute(success: Boolean?) {
-        adapter.addAll(mList);
-        adapter.notifyDataSetChanged();
+        save(mList);
     }
 
     override fun onCancelled() {
